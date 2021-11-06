@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FruitController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home', ['title' => 'Home', 'pagetitle' => 'Welcome Home']);
 });
+
+Route::resource('fruits', FruitController::class);
+
+Route::resource('reviews', ReviewController::class);

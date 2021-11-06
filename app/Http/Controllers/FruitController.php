@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fruit;
 use Illuminate\Http\Request;
 
 class FruitController extends Controller
@@ -13,7 +14,12 @@ class FruitController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Fruits';
+        $pagetitle = 'Fruits';
+
+        $fruits = Fruit::all();
+
+        return view('fruit', compact('title', 'pagetitle', 'fruits'));
     }
 
     /**
@@ -23,7 +29,10 @@ class FruitController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Fruits';
+        $pagetitle = 'Fruits';
+
+        return view('fruit_create', compact('title', 'pagetitle'));
     }
 
     /**
@@ -34,7 +43,24 @@ class FruitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $this->validate($request, [
+//            'name' => 'required|unique:courses|min:3',
+//            'lecturer' => 'required',
+//            'sks' => 'required',
+//            'description' => 'required'
+//        ]);
+
+//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+//        $request->image->move(public_path('/uploadedimages'), $imageName);
+
+        Fruit::create([
+            'fruit_name' => $request->fruit_name,
+            'price' => $request->price,
+            'weight' => $request->weight,
+            'image_path' => ''
+        ]);
+
+        return redirect(route('fruits.index'));
     }
 
     /**
@@ -45,7 +71,12 @@ class FruitController extends Controller
      */
     public function show($id)
     {
-        //
+        $title = 'Fruits';
+        $pagetitle = 'Fruits';
+
+        $fruit = Fruit::query()->findOrFail($id);
+
+        return view('fruit_show', compact('title', 'fruit'));
     }
 
     /**
@@ -56,7 +87,12 @@ class FruitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Fruits';
+        $pagetitle = 'Fruits';
+
+        $fruit = Fruit::query()->findOrFail($id);
+
+        return view('fruit_edit', compact('title', 'pagetitle', 'fruit'));
     }
 
     /**
@@ -68,7 +104,16 @@ class FruitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fruit = Fruit::query()->findOrFail($id);
+
+        $fruit->update([
+            'fruit_name' => $request->fruit_name,
+            'price' => $request->price,
+            'weight' => $request->weight,
+            'image_path' => ''
+        ]);
+
+        return redirect(route('fruits.index'));
     }
 
     /**
@@ -79,6 +124,9 @@ class FruitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fruit = Fruit::findOrFail($id);
+        $fruit->delete();
+
+        return redirect(route('fruits.index'));
     }
 }
