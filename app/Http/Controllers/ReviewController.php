@@ -46,15 +46,12 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->validate($request, [
-//            'name' => 'required|unique:courses|min:3',
-//            'lecturer' => 'required',
-//            'sks' => 'required',
-//            'description' => 'required'
-//        ]);
-
-//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
-//        $request->image->move(public_path('/uploadedimages'), $imageName);
+        $this->validate($request, [
+            'name' => 'required|min:3',
+            'score' => 'required',
+            'body' => 'required|min:3',
+            'fruit_id' => 'required'
+        ]);
 
         Review::create([
             'name' => $request->name,
@@ -75,11 +72,11 @@ class ReviewController extends Controller
     public function show($id)
     {
         $title = 'Reviews';
-        $pagetitle = 'Reviews';
+        $pagetitle = 'Review Details';
 
         $review = Review::query()->findOrFail($id);
 
-        return view('review_show', compact('title', 'review'));
+        return view('review_show', compact('title', 'pagetitle', 'review'));
     }
 
     /**
@@ -108,6 +105,13 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|min:3',
+            'score' => 'required',
+            'body' => 'required|min:3',
+            'fruit_id' => 'required'
+        ]);
+
         $review = Review::query()->findOrFail($id);
 
         $review->update([

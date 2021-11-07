@@ -2,6 +2,10 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+body > .container {
+    margin-bottom: 100px;
+}
+
 .navbar-brand img {
     height: 80px;
     margin-right: 10px;
@@ -9,7 +13,7 @@ body {
 }
 
 .nav-pills li a {
-    color: #d9515d !important;
+    color: #86323a !important;
 }
 
 .nav-pills li a.active {
@@ -17,11 +21,68 @@ body {
     background-color: #d9515d !important;
 }
 
+footer {
+    background-color: #86323a !important;
+}
+
 h1 {
     font-weight: bold;
     color: #86323a;
 }
 
-table img {
-    height: 100px;
+h2, h5 {
+    color: #86323a !important;
+}
+
+h3 {
+    color: #d9515d !important;
+}
+
+.col .card img {
+    object-fit: contain;
+    height: 300px;
+}
+
+.delete_button {
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card .btn {
+    z-index: 2;
+    position: relative;
+}
+
+.card_add {
+    color: #86323a;
+    text-align: center;
+}
+
+.shadow-sm {
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px !important;
+    transition: 0.5s;
+}
+
+.shadow-sm:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 0 10px 15px !important;
+}
+
+.text-primary {
+    color: #86323a !important;
+}
+
+.btn-primary {
+    background-color: #d9515d !important;
+    border: #d9515d !important;
+}
+
+.review_body {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

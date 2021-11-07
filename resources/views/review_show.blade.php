@@ -1,40 +1,35 @@
 @extends('layout.mainlayout')
 
-@section('title', 'Fruits')
-@section('page_title', 'Fruit Details')
+@section('title', $title)
+@section('page_title', $pagetitle)
 
 @section('main_content')
-    <div class="mt-4 p-5 bg-primary text-white rounded">
-        <h1>{{ $review->name }}</h1>
-        <p>Score: {{ $review->score }}</p>
-        <p>Body: {{ $review->body }}</p>
-        <p>Fruit: {{ $review->fruit->fruit_name }}</p>
+    <div class="card mt-5 border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>{{ $review->fruit->fruit_name }}</h3>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-row align-items-center">
+                    <span class="font-weight-bold text-primary">{{ $review->name }}</span>
+                </div>
+                <small>{{ $review->updated_at->format('d M y | H:i') }}</small>
+            </div>
+            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                <span>Score: {{ $review->score }}/5</span>
+            </div>
+            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                <span>{{ $review->body }}</span>
+            </div>
+        </div>
+        <div class="card-footer border-0">
+            <a href="{{ route('reviews.edit', $review->review_id) }}" class="btn btn-warning">Edit</a>
+            <form action="{{ route('reviews.destroy', $review->review_id) }}" method="POST" class="delete_button">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
     </div>
-    <table class="table table-striped">
-        <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Score</th>
-            <th>Body</th>
-            <th>Fruit</th>
-        </tr>
-{{--        @foreach ($fruit->reviews as $review)--}}
-{{--            <tr>--}}
-{{--                <td>{{ $loop->index + 1 }}</td>--}}
-{{--                <td>{{ $review['name'] }}</td>--}}
-{{--                <td>{{ $review['score'] }}</td>--}}
-{{--                <td>{{ $review['body'] }}</td>--}}
-{{--                <td>{{ $review->fruit->fruit_name }}</td>--}}
-{{--                --}}{{--                <td>--}}
-{{--                --}}{{--                    <a href="{{ route('fruits.show', $fruit['code']) }}" class="btn btn-primary">Show</a>--}}
-{{--                --}}{{--                    <a href="{{ route('fruits.edit', $fruit['id']) }}" class="btn btn-warning">Edit</a>--}}
-{{--                --}}{{--                    <form action="{{ route('fruits.destroy', $fruit['id']) }}" method="POST">--}}
-{{--                --}}{{--                        @csrf--}}
-{{--                --}}{{--                        @method('DELETE')--}}
-{{--                --}}{{--                        <button type="submit" class="btn btn-danger">Delete</button>--}}
-{{--                --}}{{--                    </form>--}}
-{{--                --}}{{--                </td>--}}
-{{--            </tr>--}}
-{{--        @endforeach--}}
-    </table>
+    <a href="{{ route('fruits.show', $review->fruit->fruit_id) }}" class="btn btn-danger mt-3 mb-3">Go to the fruit page</a>
 @endsection

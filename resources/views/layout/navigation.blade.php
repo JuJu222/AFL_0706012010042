@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm">
     <div class="container">
-        <a class="navbar-brand" href="#"><img src="{{ asset('img/Frootie_Logo_Horizontal.png') }}" alt=""></a>
+        <a class="navbar-brand" href="/"><img src="{{ asset('img/Frootie_Logo_Horizontal.png') }}" alt=""></a>
         <div class="collapse navbar-collapse">
             <ul class="nav nav-pills">
                 <li class="nav-item">

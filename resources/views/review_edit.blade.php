@@ -7,19 +7,19 @@
     <form action="{{ route('reviews.update', $review->review_id) }}" method="POST">
         @csrf
         <input type="hidden" name="_method" value="PATCH">
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="input_project_name">Name</label>
             <input type="text" name="name" class="form-control" value="{{ $review->name }}">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="input_project_description">Score</label>
-            <input type="number" name="score" class="form-control" value="{{ $review->score }}">
+            <input type="number" name="score" step="1" min="1" max="5" class="form-control" value="{{ $review->score }}">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="input_project_description">Body</label>
             <input type="text" name="body" class="form-control" value="{{ $review->body }}">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="fruit_id">Fruit</label>
             <select name="fruit_id" class="form-control">
                 @foreach($fruits as $fruit)
@@ -31,7 +31,7 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <button type="submit" class="btn btn-danger mt-3">Submit</button>
     </form>
     @if ($errors->any())
         <div class="alert alert-danger mt-3">

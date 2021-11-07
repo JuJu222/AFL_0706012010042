@@ -6,6 +6,7 @@
 @section('main_content')
     <form action="{{ route('reviews.store') }}" method="POST">
         @csrf
+        <input type="hidden" name="fruit_id" value="{{ $fruit->fruit_id }}">
         <div class="form-group mt-3">
             <label for="input_project_name">Name</label>
             <input type="text" name="name" class="form-control">
@@ -19,11 +20,9 @@
             <input type="text" name="body" class="form-control">
         </div>
         <div class="form-group mt-3">
-            <label for="fruit_id">Fruit</label>
-            <select name="fruit_id" class="form-control">
-                @foreach($fruits as $fruit)
-                    <option value="{{ $fruit->fruit_id }}">{{ $fruit->fruit_name }}</option>
-                @endforeach
+            <label for="fruit_id_disabled">Fruit</label>
+            <select name="fruit_id_disabled" class="form-control" disabled>
+                <option value="{{ $fruit->fruit_id }}" selected>{{ $fruit->fruit_name }}</option>
             </select>
         </div>
         <button type="submit" class="btn btn-danger mt-3">Submit</button>

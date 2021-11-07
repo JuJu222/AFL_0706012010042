@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fruit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class FruitController extends Controller
 {
@@ -36,6 +37,22 @@ class FruitController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createReview($id)
+    {
+        $title = 'Fruits';
+        $pagetitle = 'Fruits';
+
+        $fruit = Fruit::query()->findOrFail($id);
+
+        return view('fruit_create_review', compact('title', 'pagetitle', 'fruit'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,21 +60,23 @@ class FruitController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->validate($request, [
-//            'name' => 'required|unique:courses|min:3',
-//            'lecturer' => 'required',
-//            'sks' => 'required',
-//            'description' => 'required'
-//        ]);
+        $this->validate($request, [
+            'fruit_name' => 'required|min:3',
+            'price' => 'required',
+            'weight' => 'required',
+            'image' => 'required'
+        ]);
 
-//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
-//        $request->image->move(public_path('/uploadedimages'), $imageName);
+        $image = $request->file('image');
+        $name = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/img');
+        $image->move($destinationPath, $name);
 
         Fruit::create([
             'fruit_name' => $request->fruit_name,
             'price' => $request->price,
             'weight' => $request->weight,
-            'image_path' => ''
+            'image_path' => $name
         ]);
 
         return redirect(route('fruits.index'));
@@ -72,11 +91,11 @@ class FruitController extends Controller
     public function show($id)
     {
         $title = 'Fruits';
-        $pagetitle = 'Fruits';
+        $pagetitle = 'Fruit Details';
 
         $fruit = Fruit::query()->findOrFail($id);
 
-        return view('fruit_show', compact('title', 'fruit'));
+        return view('fruit_show', compact('title', 'pagetitle', 'fruit'));
     }
 
     /**
@@ -106,12 +125,27 @@ class FruitController extends Controller
     {
         $fruit = Fruit::query()->findOrFail($id);
 
-        $fruit->update([
-            'fruit_name' => $request->fruit_name,
-            'price' => $request->price,
-            'weight' => $request->weight,
-            'image_path' => ''
-        ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/img');
+            $image->move($destinationPath, $name);
+
+            File::delete(public_path('/img') . '/' . $fruit->image_path);
+
+            $fruit->update([
+                'fruit_name' => $request->fruit_name,
+                'price' => $request->price,
+                'weight' => $request->weight,
+                'image_path' => $name
+            ]);
+        } else {
+            $fruit->update([
+                'fruit_name' => $request->fruit_name,
+                'price' => $request->price,
+                'weight' => $request->weight
+            ]);
+        }
 
         return redirect(route('fruits.index'));
     }
@@ -125,6 +159,8 @@ class FruitController extends Controller
     public function destroy($id)
     {
         $fruit = Fruit::findOrFail($id);
+
+        File::delete(public_path('/img') . '/' . $fruit->image_path);
         $fruit->delete();
 
         return redirect(route('fruits.index'));
