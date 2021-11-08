@@ -7,7 +7,7 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-7">
-                <h1 class="mb-5">Welcome!</h1>
+                <h1 class="mb-5">Welcome to Frootie!</h1>
                 <div class="carousel slide carousel-fade my-4" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
