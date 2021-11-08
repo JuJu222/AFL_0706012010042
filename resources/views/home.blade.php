@@ -39,14 +39,6 @@
                         <p class="card-text">Weight: {{ $fruit->weight }}</p>
                         <p class="card-text">Rp {{ $fruit->price }}</p>
                     </div>
-                    <div class="card-footer border-0">
-                        <a href="{{ route('fruits.edit', $fruit->fruit_id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('fruits.destroy', $fruit->fruit_id) }}" method="POST" class="delete_button">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
                     <a href="{{ route('fruits.show', $fruit->fruit_id) }}" class="stretched-link"></a>
                 </div>
             </div>
@@ -73,14 +65,6 @@
                         <div class="action d-flex justify-content-between mt-2 align-items-center">
                             <span class="review_body">{{ $review->body }}</span>
                         </div>
-                    </div>
-                    <div class="card-footer border-0">
-                        <a href="{{ route('reviews.edit', $review->review_id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('reviews.destroy', $review->review_id) }}" method="POST" class="delete_button">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
                     </div>
                     <a href="{{ route('reviews.show', $review->review_id) }}" class="stretched-link"></a>
                 </div>
