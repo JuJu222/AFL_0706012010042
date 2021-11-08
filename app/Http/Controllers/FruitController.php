@@ -123,6 +123,13 @@ class FruitController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'fruit_name' => 'required|min:3',
+            'price' => 'required',
+            'weight' => 'required',
+            'image' => 'required'
+        ]);
+
         $fruit = Fruit::query()->findOrFail($id);
 
         if ($request->hasFile('image')) {
