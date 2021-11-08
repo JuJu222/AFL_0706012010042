@@ -126,8 +126,7 @@ class FruitController extends Controller
         $this->validate($request, [
             'fruit_name' => 'required|min:3',
             'price' => 'required',
-            'weight' => 'required',
-            'image' => 'required'
+            'weight' => 'required'
         ]);
 
         $fruit = Fruit::query()->findOrFail($id);
